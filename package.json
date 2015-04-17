@@ -1,5 +1,5 @@
 {
-  "name": "flowxo-services-trello",
+  "name": "flowxo-services-trello-example",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -29,14 +29,13 @@
     "node": ">=0.12.0"
   },
   "scripts": {
-    "test": "grunt test",
-    "postinstall": "cd ./node_modules/flowxo-sdk && npm install"
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/flowxo/flowxo-services-trello"
+    "url": "https://github.com/flowxo/flowxo-services-trello-example"
   },
   "bugs": {
-    "url": "https://bitbucket.org/flowxo/flowxo-services-trello/issues"
+    "url": "https://github.com/flowxo/flowxo-services-trello-example/issues"
   }
 }

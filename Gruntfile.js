@@ -63,6 +63,7 @@ module.exports = function(grunt) {
           return require('./lib');
         },
       },
+      init: {},
       auth: {},
       run: {
         options: {
@@ -71,6 +72,9 @@ module.exports = function(grunt) {
       }
     }
   });
+
+  // Initialise the SDK
+  grunt.registerTask('init', ['flowxo:init']);
 
   // Authentication Tasks
   grunt.registerTask('auth', ['env', 'flowxo:auth']);
