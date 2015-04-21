@@ -56,6 +56,17 @@ module.exports = function(grunt) {
         src: ['tests/**/*.js'],
       }
     },
+    jsbeautifier: {
+      options: {
+        config: '.jsbeautifyrc'
+      },
+      source: {
+        src: ['Gruntfile.js', 'lib/**/*.js']
+      },
+      tests: {
+        src: ['tests/**/*.js'],
+      }
+    },
     flowxo: {
       options: {
         credentialsFile: 'credentials.json',
@@ -86,5 +97,5 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['env', 'mochaTest']);
 
   // Default Task
-  grunt.registerTask('default', ['env', 'jshint', 'test', 'watch']);
+  grunt.registerTask('default', ['env', 'jsbeautifier', 'jshint', 'test', 'watch']);
 };

@@ -1,10 +1,10 @@
 'use strict';
 
 var nock = require('nock'),
-    sdk = require('flowxo-sdk'),
-    AuthError = sdk.Error.AuthError,
-    ServiceError = sdk.Error.ServiceError,
-    Client = require('../lib/client.js');
+  sdk = require('flowxo-sdk'),
+  AuthError = sdk.Error.AuthError,
+  ServiceError = sdk.Error.ServiceError,
+  Client = require('../lib/client.js');
 
 // Test specs should not test against the live API.
 // The API should be mocked, and the specs should
@@ -42,8 +42,10 @@ describe('Client', function() {
       // Setup our mocked 200 response
       var scope =
         nock('https://api.trello.com/1')
-          .get('/')
-          .reply(200, { hello: 'world' });
+        .get('/')
+        .reply(200, {
+          hello: 'world'
+        });
 
       var options = {};
 
@@ -62,8 +64,8 @@ describe('Client', function() {
     it('should parse a string of json data', function(done) {
       var scope =
         nock('https://api.trello.com/1')
-          .get('/')
-          .reply(200, '{ "hello": "world" }');
+        .get('/')
+        .reply(200, '{ "hello": "world" }');
 
       var options = {};
 
@@ -83,8 +85,8 @@ describe('Client', function() {
       // Setup our mocked 200 response
       var scope =
         nock('https://api.trello.com/1')
-          .get('/')
-          .reply(200, 'this is some odd JSON data');
+        .get('/')
+        .reply(200, 'this is some odd JSON data');
 
       var options = {};
 
@@ -100,8 +102,8 @@ describe('Client', function() {
     it('should handle authentication error', function(done) {
       var scope =
         nock('https://api.trello.com/1')
-          .get('/')
-          .reply(401);
+        .get('/')
+        .reply(401);
 
       var options = {};
       client._request(options, function(err, data) {
@@ -117,8 +119,8 @@ describe('Client', function() {
     it('should handle an invalid ObjectID error', function(done) {
       var scope =
         nock('https://api.trello.com/1')
-          .get('/')
-          .reply(400, 'invalid objectId');
+        .get('/')
+        .reply(400, 'invalid objectId');
 
       var options = {};
       client._request(options, function(err, data) {
@@ -134,8 +136,8 @@ describe('Client', function() {
     it('should handle an invalid ID error', function(done) {
       var scope =
         nock('https://api.trello.com/1')
-          .get('/')
-          .reply(400, 'invalid id');
+        .get('/')
+        .reply(400, 'invalid id');
 
       var options = {};
       client._request(options, function(err, data) {
@@ -151,8 +153,8 @@ describe('Client', function() {
     it('should handle a generic 4xx error with an error message', function(done) {
       var scope =
         nock('https://api.trello.com/1')
-          .get('/')
-          .reply(404, 'something went wrong');
+        .get('/')
+        .reply(404, 'something went wrong');
 
       var options = {};
       client._request(options, function(err, data) {
@@ -168,8 +170,8 @@ describe('Client', function() {
     it('should handle a generic 4xx error without an error message', function(done) {
       var scope =
         nock('https://api.trello.com/1')
-          .get('/')
-          .reply(404);
+        .get('/')
+        .reply(404);
 
       var options = {};
       client._request(options, function(err, data) {
@@ -185,8 +187,8 @@ describe('Client', function() {
     it('should handle a generic 5xx error with an error message', function(done) {
       var scope =
         nock('https://api.trello.com/1')
-          .get('/')
-          .reply(500, 'something went wrong');
+        .get('/')
+        .reply(500, 'something went wrong');
 
       var options = {};
       client._request(options, function(err, data) {
@@ -202,8 +204,8 @@ describe('Client', function() {
     it('should handle a generic 5xx error without an error message', function(done) {
       var scope =
         nock('https://api.trello.com/1')
-          .get('/')
-          .reply(504);
+        .get('/')
+        .reply(504);
 
       var options = {};
       client._request(options, function(err, data) {
@@ -235,12 +237,12 @@ describe('Client', function() {
       // This is testing that the `getBoards` method is calling
       // the `request` method with the correct arguments.
       requestExpect.withArgs({
-          path: 'members/me/boards',
-          query: {
-            filter: 'open',
-            fields: 'name'
-          }
-        }, sinon.match.func);
+        path: 'members/me/boards',
+        query: {
+          filter: 'open',
+          fields: 'name'
+        }
+      }, sinon.match.func);
 
       // Program the mock to respond successfully, with the
       // raw boards array
@@ -309,18 +311,18 @@ describe('Client', function() {
       clientMock
         .expects('_request')
         .withArgs({
-            path: 'boards/board-1/actions',
-            query: {
-              filter: 'createCard'
-            }
-          }, sinon.match.func)
+          path: 'boards/board-1/actions',
+          query: {
+            filter: 'createCard'
+          }
+        }, sinon.match.func)
         .yields(null, dataFromAPI);
 
       var cbExpect =
         sinon
-          .expectation
-          .create()
-          .withArgs(null, ['card-1']);
+        .expectation
+        .create()
+        .withArgs(null, ['card-1']);
 
       // Call the method under test with some dummy data.
       client.getLatestCardIdsForBoard('board-1', cbExpect);
@@ -342,18 +344,18 @@ describe('Client', function() {
       clientMock
         .expects('_request')
         .withArgs({
-            path: 'boards/board-1/actions',
-            query: {
-              filter: 'createCard'
-            }
-          }, sinon.match.func)
+          path: 'boards/board-1/actions',
+          query: {
+            filter: 'createCard'
+          }
+        }, sinon.match.func)
         .yields(null, dataFromAPI);
 
       var cbExpect =
         sinon
-          .expectation
-          .create()
-          .withArgs(null, []);
+        .expectation
+        .create()
+        .withArgs(null, []);
 
       // Call the method under test with some dummy data.
       client.getLatestCardIdsForBoard('board-1', cbExpect);
@@ -374,9 +376,9 @@ describe('Client', function() {
 
       var cbExpect =
         sinon
-          .expectation
-          .create()
-          .withArgs(requestError);
+        .expectation
+        .create()
+        .withArgs(requestError);
 
       // Call the method under test.
       client.getLatestCardIdsForBoard('board-1', cbExpect);
@@ -400,19 +402,19 @@ describe('Client', function() {
       clientMock
         .expects('_request')
         .withArgs({
-            path: 'cards/1',
-            query: {
-              members: true,
-              fields: 'badges,closed,dateLastActivity,desc,due,email,idBoard,idChecklists,idList,idShort,idAttachmentCover,manualCoverAttachment,labels,name,pos,shortLink,shortUrl,url'
-            }
-          }, sinon.match.func)
+          path: 'cards/1',
+          query: {
+            members: true,
+            fields: 'badges,closed,dateLastActivity,desc,due,email,idBoard,idChecklists,idList,idShort,idAttachmentCover,manualCoverAttachment,labels,name,pos,shortLink,shortUrl,url'
+          }
+        }, sinon.match.func)
         .yields(null, dataFromAPI);
 
       var cbExpect =
         sinon
-          .expectation
-          .create()
-          .withArgs(null, dataFromAPI);
+        .expectation
+        .create()
+        .withArgs(null, dataFromAPI);
 
       // Call the method under test with some dummy data.
       client.getCard('1', cbExpect);
@@ -433,9 +435,9 @@ describe('Client', function() {
 
       var cbExpect =
         sinon
-          .expectation
-          .create()
-          .withArgs(requestError);
+        .expectation
+        .create()
+        .withArgs(requestError);
 
       // Call the method under test.
       client.getCard('1', cbExpect);
@@ -449,51 +451,66 @@ describe('Client', function() {
   describe('Get Members for Boards', function() {
     it('should retrieve all members for the passed boards', function() {
       // Our board members as returned from the API.
-      var board1Members = [
-        { id: '1', fullName: 'Bob Holness' },
-        { id: '2', fullName: 'Bruce Forsyth' }
-      ];
-      var board2Members = [
-        { id: '1', fullName: 'Bob Holness' },
-        { id: '3', fullName: 'Keith Chegwin' }
-      ];
+      var board1Members = [{
+        id: '1',
+        fullName: 'Bob Holness'
+      }, {
+        id: '2',
+        fullName: 'Bruce Forsyth'
+      }];
+      var board2Members = [{
+        id: '1',
+        fullName: 'Bob Holness'
+      }, {
+        id: '3',
+        fullName: 'Keith Chegwin'
+      }];
 
       // Setup the mocks and expectations
       var clientMock = sandbox.mock(client);
       clientMock
         .expects('_request')
         .withArgs({
-            path: 'boards/1/members',
-            query: {
-              fields: 'fullName'
-            }
-          }, sinon.match.func)
+          path: 'boards/1/members',
+          query: {
+            fields: 'fullName'
+          }
+        }, sinon.match.func)
         .yields(null, board1Members);
 
       clientMock
         .expects('_request')
         .withArgs({
-            path: 'boards/2/members',
-            query: {
-              fields: 'fullName'
-            }
-          }, sinon.match.func)
+          path: 'boards/2/members',
+          query: {
+            fields: 'fullName'
+          }
+        }, sinon.match.func)
         .yields(null, board2Members);
 
       // Bob Holness should be deduplicated
-      var expectedMembersOutput = [
-        { id: '1', fullName: 'Bob Holness' },
-        { id: '2', fullName: 'Bruce Forsyth' },
-        { id: '3', fullName: 'Keith Chegwin' }
-      ];
+      var expectedMembersOutput = [{
+        id: '1',
+        fullName: 'Bob Holness'
+      }, {
+        id: '2',
+        fullName: 'Bruce Forsyth'
+      }, {
+        id: '3',
+        fullName: 'Keith Chegwin'
+      }];
       var cbExpect =
         sinon
-          .expectation
-          .create()
-          .withArgs(null, expectedMembersOutput);
+        .expectation
+        .create()
+        .withArgs(null, expectedMembersOutput);
 
       // Call the method under test with some dummy data.
-      var boards = [{ id: '1' }, { id: '2' }];
+      var boards = [{
+        id: '1'
+      }, {
+        id: '2'
+      }];
       client.getMembersForBoards(boards, cbExpect);
 
       // Expect that the mock and the callback performed
@@ -512,12 +529,14 @@ describe('Client', function() {
 
       var cbExpect =
         sinon
-          .expectation
-          .create()
-          .withArgs(requestError);
+        .expectation
+        .create()
+        .withArgs(requestError);
 
       // Call the method under test.
-      client.getMembersForBoards([{ id: '1' }], cbExpect);
+      client.getMembersForBoards([{
+        id: '1'
+      }], cbExpect);
 
       // Expect that the callback performed
       // as programmed above.
@@ -528,49 +547,66 @@ describe('Client', function() {
   describe('Get Lists for Boards', function() {
     it('should retrieve all lists for the passed boards', function() {
       // Our board members as returned from the API.
-      var board1Lists = [
-        { id: '1', name: 'Doing' },
-        { id: '2', name: 'Done' }
-      ];
-      var board2Lists = [
-        { id: '3', name: 'Doing' },
-        { id: '4', name: 'Done' }
-      ];
+      var board1Lists = [{
+        id: '1',
+        name: 'Doing'
+      }, {
+        id: '2',
+        name: 'Done'
+      }];
+      var board2Lists = [{
+        id: '3',
+        name: 'Doing'
+      }, {
+        id: '4',
+        name: 'Done'
+      }];
 
       // Setup the mocks and expectations
       var clientMock = sandbox.mock(client);
       clientMock
         .expects('_request')
         .withArgs({
-            path: 'boards/1/lists',
-            query: {
-              fields: 'name'
-            }
-          }, sinon.match.func)
+          path: 'boards/1/lists',
+          query: {
+            fields: 'name'
+          }
+        }, sinon.match.func)
         .yields(null, board1Lists);
 
       clientMock
         .expects('_request')
         .withArgs({
-            path: 'boards/2/lists',
-            query: {
-              fields: 'name'
-            }
-          }, sinon.match.func)
+          path: 'boards/2/lists',
+          query: {
+            fields: 'name'
+          }
+        }, sinon.match.func)
         .yields(null, board2Lists);
 
       // Bob Holness should be deduplicated
-      var expectedListsOutput = [
-        { id: '1', board: 'Holidays', name: 'Doing' },
-        { id: '2', board: 'Holidays', name: 'Done' },
-        { id: '3', board: 'DIY', name: 'Doing' },
-        { id: '4', board: 'DIY', name: 'Done' }
-      ];
+      var expectedListsOutput = [{
+        id: '1',
+        board: 'Holidays',
+        name: 'Doing'
+      }, {
+        id: '2',
+        board: 'Holidays',
+        name: 'Done'
+      }, {
+        id: '3',
+        board: 'DIY',
+        name: 'Doing'
+      }, {
+        id: '4',
+        board: 'DIY',
+        name: 'Done'
+      }];
       var cbExpect =
         sinon
-          .expectation
-          .create()
-          .withArgs(null, expectedListsOutput);
+        .expectation
+        .create()
+        .withArgs(null, expectedListsOutput);
 
       // Call the method under test with some dummy data.
       var boards = [{
@@ -598,9 +634,9 @@ describe('Client', function() {
 
       var cbExpect =
         sinon
-          .expectation
-          .create()
-          .withArgs(requestError);
+        .expectation
+        .create()
+        .withArgs(requestError);
 
       // Call the method under test.
       var boards = [{
@@ -625,20 +661,28 @@ describe('Client', function() {
       clientMock
         .expects('_request')
         .withArgs({
-            path: 'cards',
-            method: 'POST',
-            json: { name: 'New Card' }
-          }, sinon.match.func)
-        .yields(null, { id: '1' });
+          path: 'cards',
+          method: 'POST',
+          json: {
+            name: 'New Card'
+          }
+        }, sinon.match.func)
+        .yields(null, {
+          id: '1'
+        });
 
       var cbExpect =
         sinon
-          .expectation
-          .create()
-          .withArgs(null, { id: '1' });
+        .expectation
+        .create()
+        .withArgs(null, {
+          id: '1'
+        });
 
       // Call the method under test with some dummy data.
-      client.newCard({ name: 'New Card' }, cbExpect);
+      client.newCard({
+        name: 'New Card'
+      }, cbExpect);
 
       // Expect that the mock and the callback performed
       // as programmed above.
@@ -656,12 +700,14 @@ describe('Client', function() {
 
       var cbExpect =
         sinon
-          .expectation
-          .create()
-          .withArgs(requestError);
+        .expectation
+        .create()
+        .withArgs(requestError);
 
       // Call the method under test.
-      client.newCard({ name: 'New Card' }, cbExpect);
+      client.newCard({
+        name: 'New Card'
+      }, cbExpect);
 
       // Expect that the callback performed
       // as programmed above.

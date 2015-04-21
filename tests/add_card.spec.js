@@ -22,8 +22,12 @@ describe('Add a Card', function() {
       clientStub.returns({
         newCard: function(card, done) {
           // Should have removed non-word chars
-          expect(card).to.deep.equal({ name: 'Card 1' });
-          done(null, { id: '1' });
+          expect(card).to.deep.equal({
+            name: 'Card 1'
+          });
+          done(null, {
+            id: '1'
+          });
         }
       });
 
@@ -37,7 +41,9 @@ describe('Add a Card', function() {
       this.runner.run('add_a_card', 'run', options, function(err, output) {
         expect(err).not.to.exist;
         expect(clientStub).to.have.been.calledWith(options.credentials);
-        expect(output).to.deep.equal({ id: '1' });
+        expect(output).to.deep.equal({
+          id: '1'
+        });
         done();
       });
     });
@@ -47,13 +53,17 @@ describe('Add a Card', function() {
       // the run script in isolation, without making any
       // actual API calls.
       var now = new Date(),
-          nowStr = now.toISOString();
+        nowStr = now.toISOString();
 
       clientStub.returns({
         newCard: function(card, done) {
           // Should have removed non-word chars
-          expect(card).to.deep.equal({ due: nowStr });
-          done(null, { id: '1' });
+          expect(card).to.deep.equal({
+            due: nowStr
+          });
+          done(null, {
+            id: '1'
+          });
         }
       });
 
@@ -69,7 +79,9 @@ describe('Add a Card', function() {
       this.runner.run('add_a_card', 'run', options, function(err, output) {
         expect(err).not.to.exist;
         expect(clientStub).to.have.been.calledWith(options.credentials);
-        expect(output).to.deep.equal({ id: '1' });
+        expect(output).to.deep.equal({
+          id: '1'
+        });
         done();
       });
     });
@@ -84,7 +96,9 @@ describe('Add a Card', function() {
           expect(card).to.deep.equal({
             labels: 'red,yellow,green'
           });
-          done(null, { id: '1' });
+          done(null, {
+            id: '1'
+          });
         }
       });
 
@@ -98,7 +112,9 @@ describe('Add a Card', function() {
       this.runner.run('add_a_card', 'run', options, function(err, output) {
         expect(err).not.to.exist;
         expect(clientStub).to.have.been.calledWith(options.credentials);
-        expect(output).to.deep.equal({ id: '1' });
+        expect(output).to.deep.equal({
+          id: '1'
+        });
         done();
       });
     });
@@ -145,7 +161,9 @@ describe('Add a Card', function() {
         }
       });
 
-      var options = { credentials: {} };
+      var options = {
+        credentials: {}
+      };
 
       // Run the script with the runner,
       // available at `this.runner`.

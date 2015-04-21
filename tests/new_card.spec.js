@@ -1,7 +1,7 @@
 'use strict';
 
 var sdk = require('flowxo-sdk'),
-    ServiceError = sdk.Error.ServiceError;
+  ServiceError = sdk.Error.ServiceError;
 
 describe('New Card', function() {
   var sandbox, clientStub;
@@ -26,7 +26,7 @@ describe('New Card', function() {
         getLatestCardIdsForBoard: function(boardId, done) {
           // Should have removed non-word chars
           expect(boardId).to.equal('boardId');
-          done(null, [ '1', '2', '3' ]);
+          done(null, ['1', '2', '3']);
         },
         getCard: function(cardId, done) {
           done(null, {
@@ -115,7 +115,7 @@ describe('New Card', function() {
       // actual API calls.
       clientStub.returns({
         getLatestCardIdsForBoard: function(boardId, done) {
-          done(null, [ '1', '2', '3' ]);
+          done(null, ['1', '2', '3']);
         },
         getCard: function(cardId, done) {
           done('Error');
@@ -156,7 +156,9 @@ describe('New Card', function() {
         }
       });
 
-      var options = { credentials: {} };
+      var options = {
+        credentials: {}
+      };
 
       // Run the script with the runner,
       // available at `this.runner`.
@@ -170,7 +172,7 @@ describe('New Card', function() {
           label: 'Board',
           required: true,
           type: 'select',
-          input_options:[{
+          input_options: [{
             label: 'Board',
             value: '1'
           }]
