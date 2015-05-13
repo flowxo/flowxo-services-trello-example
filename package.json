@@ -21,6 +21,7 @@
     "jshint-stylish": "^1.0.1",
     "load-grunt-tasks": "^3.1.0",
     "mocha": "^2.2.4",
+    "nock": "^2.0.1",
     "nopt-grunt-fix": "^1.0.0",
     "sinon": "^1.14.1",
     "sinon-chai": "^2.7.0",
