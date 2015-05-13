@@ -1,5 +1,7 @@
 'use strict';
 
+var ServiceError = require('flowxo-sdk').Error.ServiceError;
+
 describe('Add a Card', function() {
   var sandbox, clientStub;
 
@@ -48,6 +50,48 @@ describe('Add a Card', function() {
       });
     });
 
+    it('should ensure there is a name', function(done) {
+      // The Client is stubbed so we can test
+      // the run script in isolation, without making any
+      // actual API calls.
+      var options = {
+        credentials: {},
+        input: {
+          labels: 'red, yellow ,  green'
+        }
+      };
+
+      this.runner.run('add_a_card', 'run', options, function(err) {
+        expect(err).to.exist;
+        expect(err).to.be.an.instanceof(ServiceError);
+        expect(err.message).to.equal('Name can\'t be blank');
+        done();
+      });
+    });
+
+    it('should ensure the due date is valid', function(done) {
+      // The Client is stubbed so we can test
+      // the run script in isolation, without making any
+      // actual API calls.
+      var options = {
+        credentials: {},
+        input: {
+          name: 'name',
+          due: {
+            valid: false
+          },
+          labels: 'red, yellow ,  green'
+        }
+      };
+
+      this.runner.run('add_a_card', 'run', options, function(err) {
+        expect(err).to.exist;
+        expect(err).to.be.an.instanceof(ServiceError);
+        expect(err.message).to.equal('Due is not a valid datetime input');
+        done();
+      });
+    });
+
     it('should send a parsed due date', function(done) {
       // The Client is stubbed so we can test
       // the run script in isolation, without making any
@@ -59,6 +103,7 @@ describe('Add a Card', function() {
         newCard: function(card, done) {
           // Should have removed non-word chars
           expect(card).to.deep.equal({
+            name: 'name',
             due: nowStr
           });
           done(null, {
@@ -70,6 +115,7 @@ describe('Add a Card', function() {
       var options = {
         credentials: {},
         input: {
+          name: 'name',
           due: {
             valid: true,
             parsed: now
@@ -95,6 +141,7 @@ describe('Add a Card', function() {
         newCard: function(card, done) {
           // Should have removed non-word chars
           expect(card).to.deep.equal({
+            name: 'name',
             labels: 'red,yellow,green'
           });
           done(null, {
@@ -106,6 +153,7 @@ describe('Add a Card', function() {
       var options = {
         credentials: {},
         input: {
+          name: 'name',
           labels: 'red, yellow ,  green'
         }
       };
@@ -130,7 +178,11 @@ describe('Add a Card', function() {
         }
       });
 
-      var options = {};
+      var options = {
+        input: {
+          name: 'name'
+        }
+      };
 
       this.runner.run('add_a_card', 'run', options, function(err) {
         expect(err).to.equal('Error');
@@ -323,8 +375,6 @@ describe('Add a Card', function() {
         done();
       });
     });
-
-
 
     it('should return an empty array if the target field was not recognised', function(done) {
       var options = {

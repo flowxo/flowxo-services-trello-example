@@ -79,7 +79,7 @@ describe('New Card', function() {
       this.runner.run('new_card', 'run', options, function(err) {
         expect(err).to.exist;
         expect(err).to.be.an.instanceof(ServiceError);
-        expect(err.message).to.equal('Cannot run: no boardId specified. Are you sure you selected a valid board from the dropdown menu?');
+        expect(err.message).to.equal('Board ID can\'t be blank');
         done();
       });
     });
