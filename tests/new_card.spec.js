@@ -23,7 +23,7 @@ describe('New Card', function() {
       // the run script in isolation, without making any
       // actual API calls.
       clientStub.returns({
-        getLatestCardIdsForBoard: function(boardId, done) {
+        getBoardLatestCardIds: function(boardId, done) {
           // Should have removed non-word chars
           expect(boardId).to.equal('boardId');
           done(null, ['1', '2', '3']);
@@ -89,7 +89,7 @@ describe('New Card', function() {
       // the run script in isolation, without making any
       // actual API calls.
       clientStub.returns({
-        getLatestCardIdsForBoard: function(boardId, done) {
+        getBoardLatestCardIds: function(boardId, done) {
           done('Error');
         }
       });
@@ -114,7 +114,7 @@ describe('New Card', function() {
       // the run script in isolation, without making any
       // actual API calls.
       clientStub.returns({
-        getLatestCardIdsForBoard: function(boardId, done) {
+        getBoardLatestCardIds: function(boardId, done) {
           done(null, ['1', '2', '3']);
         },
         getCard: function(cardId, done) {

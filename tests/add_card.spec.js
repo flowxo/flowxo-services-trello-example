@@ -71,6 +71,7 @@ describe('Add a Card', function() {
         credentials: {},
         input: {
           due: {
+            valid: true,
             parsed: now
           }
         }
@@ -139,57 +140,45 @@ describe('Add a Card', function() {
   });
 
   describe('Custom Input Script', function() {
-    it('should present members and lists as select options', function(done) {
+    it('should return the boards, lists and members fields, with the boards field populated, on first load', function(done) {
       // The Client is stubbed so we can test
-      // the run script in isolation.
+      // the input script in isolation.
       clientStub.returns({
         getBoards: function(done) {
-          done(null, []);
-        },
-        getMembersForBoards: function(boards, done) {
-          done(null, [{
-            id: 'member-1',
-            fullName: 'Bob Holness'
-          }]);
-        },
-        getListsForBoards: function(boards, done) {
-          done(null, [{
-            id: 'list-1',
-            name: 'Doing',
-            board: 'Holiday'
-          }]);
+          done(null, [{ id: 'board-1', name: 'Board 1' }]);
         }
       });
 
-      var options = {
-        credentials: {}
-      };
+      var options = { credentials: {} };
 
-      // Run the script with the runner,
-      // available at `this.runner`.
+      // Run the script with the runner
       this.runner.run('add_a_card', 'input', options, function(err, output) {
         expect(err).to.be.null;
 
         expect(clientStub).to.have.been.calledWith(options.credentials);
 
         expect(output).to.deep.equal([{
+          key: 'idBoard',
+          label: 'Board',
+          required: true,
+          type: 'select',
+          input_options: [{
+            value: 'board-1',
+            label: 'Board 1'
+          }],
+          dependants: [ 'idMembers', 'idList' ]
+        }, {
           key: 'idMembers',
           label: 'Member',
           type: 'select',
           description: 'Choosing a member here will add them to the card.',
-          input_options: [{
-            value: 'member-1',
-            label: 'Bob Holness'
-          }]
+          input_options: []
         }, {
           key: 'idList',
           label: 'List',
           required: true,
           type: 'select',
-          input_options: [{
-            value: 'list-1',
-            label: 'Holiday - Doing'
-          }]
+          input_options: []
         }]);
 
         done();
@@ -215,22 +204,87 @@ describe('Add a Card', function() {
       });
     });
 
-    it('should handle an error from the call to getMembersForBoards', function(done) {
+    it('should return the populated lists and members fields when the script is run from a change in the board value', function(done) {
+      // The Client is stubbed so we can test
+      // the input script in isolation.
+      clientStub.returns({
+        getBoardMembers: function(boardId, done) {
+          expect(boardId).to.equal('1');
+          done(null, [{
+            id: 'member-1',
+            fullName: 'Bob Holness'
+          }]);
+        },
+        getBoardLists: function(boardId, done) {
+          expect(boardId).to.equal('1');
+          done(null, [{
+            id: 'list-1',
+            name: 'Doing'
+          }]);
+        }
+      });
+
+      var options = {
+        credentials: {},
+        input: {
+          target: {
+            field: 'idBoard',
+            value: '1'
+          }
+        }
+      };
+
+      // Run the script with the runner
+      this.runner.run('add_a_card', 'input', options, function(err, output) {
+        expect(err).to.be.null;
+
+        expect(clientStub).to.have.been.calledWith(options.credentials);
+
+        expect(output).to.deep.equal([{
+          key: 'idMembers',
+          label: 'Member',
+          type: 'select',
+          description: 'Choosing a member here will add them to the card.',
+          input_options: [{
+            value: 'member-1',
+            label: 'Bob Holness'
+          }]
+        }, {
+          key: 'idList',
+          label: 'List',
+          required: true,
+          type: 'select',
+          input_options: [{
+            value: 'list-1',
+            label: 'Doing'
+          }]
+        }]);
+
+        done();
+      });
+    });
+
+    it('should handle an error from the call to getBoardMembers', function(done) {
       // The Client is stubbed so we can test
       // the run script in isolation.
       clientStub.returns({
-        getBoards: function(done) {
-          done(null, []);
-        },
-        getMembersForBoards: function(boards, done) {
+        getBoardMembers: function(boards, done) {
           done('Error');
         },
-        getListsForBoards: function(boards, done) {
+        getBoardLists: function(boards, done) {
           done(null, []);
         }
       });
 
-      var options = {};
+      var options = {
+        credentials: {},
+        input: {
+          target: {
+            field: 'idBoard',
+            value: '1'
+          }
+        }
+      };
 
       // Run the script with the runner,
       // available at `this.runner`.
@@ -240,27 +294,52 @@ describe('Add a Card', function() {
       });
     });
 
-    it('should handle an error from the call to getListsForBoards', function(done) {
+    it('should handle an error from the call to getBoardLists', function(done) {
       // The Client is stubbed so we can test
       // the run script in isolation.
       clientStub.returns({
-        getBoards: function(done) {
+        getBoardMembers: function(boards, done) {
           done(null, []);
         },
-        getMembersForBoards: function(boards, done) {
-          done(null, []);
-        },
-        getListsForBoards: function(boards, done) {
+        getBoardLists: function(boards, done) {
           done('Error');
         }
       });
 
-      var options = {};
+      var options = {
+        credentials: {},
+        input: {
+          target: {
+            field: 'idBoard',
+            value: '1'
+          }
+        }
+      };
 
       // Run the script with the runner,
       // available at `this.runner`.
       this.runner.run('add_a_card', 'input', options, function(err) {
         expect(err).to.equal('Error');
+        done();
+      });
+    });
+
+
+
+    it('should return an empty array if the target field was not recognised', function(done) {
+      var options = {
+        input: {
+          target: {
+            field: 'unknown',
+            value: '1'
+          }
+        }
+      };
+
+      // Run the script with the runner
+      this.runner.run('add_a_card', 'input', options, function(err, output) {
+        expect(err).to.be.null;
+        expect(output).to.deep.equal([]);
         done();
       });
     });

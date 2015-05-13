@@ -81,19 +81,18 @@ describe('Client', function() {
       });
     });
 
-    it('should handle a JSON parse error', function(done) {
+    it('should return the original data if it could not be parsed as JSON', function(done) {
       // Setup our mocked 200 response
       var scope =
         nock('https://api.trello.com/1')
         .get('/')
-        .reply(200, 'this is some odd JSON data');
+        .reply(200, 1);
 
       var options = {};
 
       client._request(options, function(err, data) {
         expect(err).to.be.defined;
-        expect(data).to.be.undefined;
-        expect(err).to.be.an.instanceof(Error);
+        expect(data).to.equal(1);
         expect(scope.isDone()).to.be.true;
         done();
       });
@@ -295,7 +294,129 @@ describe('Client', function() {
     });
   });
 
-  describe('Get Latest Card IDs for Board', function() {
+  describe('Get Board Members', function() {
+    it('should retrieve all members for the passed board', function() {
+      // Our board members as returned from the API.
+      var boardMembers = [{
+        id: '1',
+        fullName: 'Bob Holness'
+      }, {
+        id: '2',
+        fullName: 'Bruce Forsyth'
+      }];
+
+      // Setup the mocks and expectations
+      var clientMock = sandbox.mock(client);
+      clientMock
+        .expects('_request')
+        .withArgs({
+          path: 'boards/1/members',
+          query: {
+            fields: 'fullName'
+          }
+        }, sinon.match.func)
+        .yields(null, boardMembers);
+
+      var cbExpect =
+        sinon
+        .expectation
+        .create()
+        .withArgs(null, boardMembers);
+
+      // Call the method under test with some dummy data.
+      client.getBoardMembers('1', cbExpect);
+
+      // Expect that the mock and the callback performed
+      // as programmed above.
+      cbExpect.verify();
+      clientMock.verify();
+    });
+
+    it('should return the error from the request', function() {
+      var requestError = new Error();
+
+      // Create the stub and expectation
+      sandbox
+        .stub(client, '_request')
+        .yields(requestError);
+
+      var cbExpect =
+        sinon
+        .expectation
+        .create()
+        .withArgs(requestError);
+
+      // Call the method under test.
+      client.getBoardMembers('1', cbExpect);
+
+      // Expect that the callback performed
+      // as programmed above.
+      cbExpect.verify();
+    });
+  });
+
+  describe('Get Board Lists', function() {
+    it('should retrieve all lists for the passed board', function() {
+      // Our board members as returned from the API.
+      var boardLists = [{
+        id: '1',
+        name: 'Doing'
+      }, {
+        id: '2',
+        name: 'Done'
+      }];
+
+      // Setup the mocks and expectations
+      var clientMock = sandbox.mock(client);
+      clientMock
+        .expects('_request')
+        .withArgs({
+          path: 'boards/1/lists',
+          query: {
+            fields: 'name'
+          }
+        }, sinon.match.func)
+        .yields(null, boardLists);
+
+      var cbExpect =
+        sinon
+        .expectation
+        .create()
+        .withArgs(null, boardLists);
+
+      // Call the method under test with some dummy data.
+      client.getBoardLists('1', cbExpect);
+
+      // Expect that the mock and the callback performed
+      // as programmed above.
+      cbExpect.verify();
+      clientMock.verify();
+    });
+
+    it('should return the error from the request', function() {
+      var requestError = new Error();
+
+      // Create the stub and expectation
+      sandbox
+        .stub(client, '_request')
+        .yields(requestError);
+
+      var cbExpect =
+        sinon
+        .expectation
+        .create()
+        .withArgs(requestError);
+
+      // Call the method under test.
+      client.getBoardLists('1', cbExpect);
+
+      // Expect that the callback performed
+      // as programmed above.
+      cbExpect.verify();
+    });
+  });
+
+  describe('Get Board Latest Card IDs', function() {
     it('should retrieve latest card IDs for a board for the logged-in user', function() {
       // Our cards as returned from the API.
       var dataFromAPI = [{
@@ -325,7 +446,7 @@ describe('Client', function() {
         .withArgs(null, ['card-1']);
 
       // Call the method under test with some dummy data.
-      client.getLatestCardIdsForBoard('board-1', cbExpect);
+      client.getBoardLatestCardIds('board-1', cbExpect);
 
       // Expect that the mock and the callback performed
       // as programmed above.
@@ -358,7 +479,7 @@ describe('Client', function() {
         .withArgs(null, []);
 
       // Call the method under test with some dummy data.
-      client.getLatestCardIdsForBoard('board-1', cbExpect);
+      client.getBoardLatestCardIds('board-1', cbExpect);
 
       // Expect that the mock and the callback performed
       // as programmed above.
@@ -381,7 +502,7 @@ describe('Client', function() {
         .withArgs(requestError);
 
       // Call the method under test.
-      client.getLatestCardIdsForBoard('board-1', cbExpect);
+      client.getBoardLatestCardIds('board-1', cbExpect);
 
       // Expect that the callback performed
       // as programmed above.
@@ -441,212 +562,6 @@ describe('Client', function() {
 
       // Call the method under test.
       client.getCard('1', cbExpect);
-
-      // Expect that the callback performed
-      // as programmed above.
-      cbExpect.verify();
-    });
-  });
-
-  describe('Get Members for Boards', function() {
-    it('should retrieve all members for the passed boards', function() {
-      // Our board members as returned from the API.
-      var board1Members = [{
-        id: '1',
-        fullName: 'Bob Holness'
-      }, {
-        id: '2',
-        fullName: 'Bruce Forsyth'
-      }];
-      var board2Members = [{
-        id: '1',
-        fullName: 'Bob Holness'
-      }, {
-        id: '3',
-        fullName: 'Keith Chegwin'
-      }];
-
-      // Setup the mocks and expectations
-      var clientMock = sandbox.mock(client);
-      clientMock
-        .expects('_request')
-        .withArgs({
-          path: 'boards/1/members',
-          query: {
-            fields: 'fullName'
-          }
-        }, sinon.match.func)
-        .yields(null, board1Members);
-
-      clientMock
-        .expects('_request')
-        .withArgs({
-          path: 'boards/2/members',
-          query: {
-            fields: 'fullName'
-          }
-        }, sinon.match.func)
-        .yields(null, board2Members);
-
-      // Bob Holness should be deduplicated
-      var expectedMembersOutput = [{
-        id: '1',
-        fullName: 'Bob Holness'
-      }, {
-        id: '2',
-        fullName: 'Bruce Forsyth'
-      }, {
-        id: '3',
-        fullName: 'Keith Chegwin'
-      }];
-      var cbExpect =
-        sinon
-        .expectation
-        .create()
-        .withArgs(null, expectedMembersOutput);
-
-      // Call the method under test with some dummy data.
-      var boards = [{
-        id: '1'
-      }, {
-        id: '2'
-      }];
-      client.getMembersForBoards(boards, cbExpect);
-
-      // Expect that the mock and the callback performed
-      // as programmed above.
-      cbExpect.verify();
-      clientMock.verify();
-    });
-
-    it('should return the error from the request', function() {
-      var requestError = new Error();
-
-      // Create the stub and expectation
-      sandbox
-        .stub(client, '_request')
-        .yields(requestError);
-
-      var cbExpect =
-        sinon
-        .expectation
-        .create()
-        .withArgs(requestError);
-
-      // Call the method under test.
-      client.getMembersForBoards([{
-        id: '1'
-      }], cbExpect);
-
-      // Expect that the callback performed
-      // as programmed above.
-      cbExpect.verify();
-    });
-  });
-
-  describe('Get Lists for Boards', function() {
-    it('should retrieve all lists for the passed boards', function() {
-      // Our board members as returned from the API.
-      var board1Lists = [{
-        id: '1',
-        name: 'Doing'
-      }, {
-        id: '2',
-        name: 'Done'
-      }];
-      var board2Lists = [{
-        id: '3',
-        name: 'Doing'
-      }, {
-        id: '4',
-        name: 'Done'
-      }];
-
-      // Setup the mocks and expectations
-      var clientMock = sandbox.mock(client);
-      clientMock
-        .expects('_request')
-        .withArgs({
-          path: 'boards/1/lists',
-          query: {
-            fields: 'name'
-          }
-        }, sinon.match.func)
-        .yields(null, board1Lists);
-
-      clientMock
-        .expects('_request')
-        .withArgs({
-          path: 'boards/2/lists',
-          query: {
-            fields: 'name'
-          }
-        }, sinon.match.func)
-        .yields(null, board2Lists);
-
-      // Bob Holness should be deduplicated
-      var expectedListsOutput = [{
-        id: '1',
-        board: 'Holidays',
-        name: 'Doing'
-      }, {
-        id: '2',
-        board: 'Holidays',
-        name: 'Done'
-      }, {
-        id: '3',
-        board: 'DIY',
-        name: 'Doing'
-      }, {
-        id: '4',
-        board: 'DIY',
-        name: 'Done'
-      }];
-      var cbExpect =
-        sinon
-        .expectation
-        .create()
-        .withArgs(null, expectedListsOutput);
-
-      // Call the method under test with some dummy data.
-      var boards = [{
-        id: '1',
-        name: 'Holidays'
-      }, {
-        id: '2',
-        name: 'DIY'
-      }];
-      client.getListsForBoards(boards, cbExpect);
-
-      // Expect that the mock and the callback performed
-      // as programmed above.
-      cbExpect.verify();
-      clientMock.verify();
-    });
-
-    it('should return the error from the request', function() {
-      var requestError = new Error();
-
-      // Create the stub and expectation
-      sandbox
-        .stub(client, '_request')
-        .yields(requestError);
-
-      var cbExpect =
-        sinon
-        .expectation
-        .create()
-        .withArgs(requestError);
-
-      // Call the method under test.
-      var boards = [{
-        id: '1',
-        name: 'Holidays'
-      }, {
-        id: '2',
-        name: 'DIY'
-      }];
-      client.getListsForBoards(boards, cbExpect);
 
       // Expect that the callback performed
       // as programmed above.
