@@ -96,6 +96,9 @@ module.exports = function(grunt) {
   // Test Tasks
   grunt.registerTask('test', ['env', 'mochaTest']);
 
+  // Preflight Tasks
+  grunt.registerTask('preflight', ['env', 'jsbeautifier', 'jshint', 'test']);
+
   // Default Task
-  grunt.registerTask('default', ['env', 'jsbeautifier', 'jshint', 'test', 'watch']);
+  grunt.registerTask('default', ['preflight', 'watch']);
 };

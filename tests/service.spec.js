@@ -21,10 +21,13 @@ describe('Trello Service', function() {
 
   describe('Get Boards Input Field', function() {
     it('should get boards input field with boards data', function() {
-      var boards = [
-        { id: '1', name: 'Board 1' },
-        { id: '2', name: 'Board 2' }
-      ];
+      var boards = [{
+        id: '1',
+        name: 'Board 1'
+      }, {
+        id: '2',
+        name: 'Board 2'
+      }];
       var field = this.service.getBoardsInputField(
         boards);
 
@@ -33,10 +36,13 @@ describe('Trello Service', function() {
         label: 'Board',
         required: true,
         type: 'select',
-        input_options: [
-          { value: '1', label: 'Board 1' },
-          { value: '2', label: 'Board 2' }
-        ]
+        input_options: [{
+          value: '1',
+          label: 'Board 1'
+        }, {
+          value: '2',
+          label: 'Board 2'
+        }]
       });
     });
 
@@ -57,10 +63,13 @@ describe('Trello Service', function() {
 
   describe('Get Members Input Field', function() {
     it('should get members input field with members data', function() {
-      var members = [
-        { id: '1', fullName: 'Member 1' },
-        { id: '2', fullName: 'Member 2' }
-      ];
+      var members = [{
+        id: '1',
+        fullName: 'Member 1'
+      }, {
+        id: '2',
+        fullName: 'Member 2'
+      }];
       var field = this.service.getMembersInputField(
         members);
 
@@ -69,10 +78,13 @@ describe('Trello Service', function() {
         label: 'Member',
         type: 'select',
         description: 'Choosing a member here will add them to the card.',
-        input_options: [
-          { value: '1', label: 'Member 1' },
-          { value: '2', label: 'Member 2' }
-        ]
+        input_options: [{
+          value: '1',
+          label: 'Member 1'
+        }, {
+          value: '2',
+          label: 'Member 2'
+        }]
       });
     });
 
@@ -93,22 +105,28 @@ describe('Trello Service', function() {
 
   describe('Get Lists Input Field', function() {
     it('should get lists input field with lists data', function() {
-      var lists = [
-        { id: '1', name: 'List 1' },
-        { id: '2', name: 'List 2' }
-      ];
+      var lists = [{
+        id: '1',
+        name: 'List 1'
+      }, {
+        id: '2',
+        name: 'List 2'
+      }];
       var field = this.service.getListsInputField(
         lists);
 
       expect(field).to.deep.equal({
-         key: 'idList',
+        key: 'idList',
         label: 'List',
         type: 'select',
         required: true,
-        input_options: [
-          { value: '1', label: 'List 1' },
-          { value: '2', label: 'List 2' }
-        ]
+        input_options: [{
+          value: '1',
+          label: 'List 1'
+        }, {
+          value: '2',
+          label: 'List 2'
+        }]
       });
     });
 
@@ -118,7 +136,7 @@ describe('Trello Service', function() {
         lists);
 
       expect(field).to.deep.equal({
-         key: 'idList',
+        key: 'idList',
         label: 'List',
         type: 'select',
         required: true,

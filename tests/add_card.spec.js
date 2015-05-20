@@ -197,11 +197,16 @@ describe('Add a Card', function() {
       // the input script in isolation.
       clientStub.returns({
         getBoards: function(done) {
-          done(null, [{ id: 'board-1', name: 'Board 1' }]);
+          done(null, [{
+            id: 'board-1',
+            name: 'Board 1'
+          }]);
         }
       });
 
-      var options = { credentials: {} };
+      var options = {
+        credentials: {}
+      };
 
       // Run the script with the runner
       this.runner.run('add_a_card', 'input', options, function(err, output) {
@@ -218,7 +223,7 @@ describe('Add a Card', function() {
             value: 'board-1',
             label: 'Board 1'
           }],
-          dependants: [ 'idMembers', 'idList' ]
+          dependants: ['idMembers', 'idList']
         }, {
           key: 'idMembers',
           label: 'Member',
