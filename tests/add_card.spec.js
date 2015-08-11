@@ -223,19 +223,7 @@ describe('Add a Card', function() {
             value: 'board-1',
             label: 'Board 1'
           }],
-          dependants: ['idMembers', 'idList']
-        }, {
-          key: 'idMembers',
-          label: 'Member',
-          type: 'select',
-          description: 'Choosing a member here will add them to the card.',
-          input_options: []
-        }, {
-          key: 'idList',
-          label: 'List',
-          required: true,
-          type: 'select',
-          input_options: []
+          dependants: true
         }]);
 
         done();
@@ -284,9 +272,9 @@ describe('Add a Card', function() {
       var options = {
         credentials: {},
         input: {
-          target: {
-            field: 'idBoard',
-            value: '1'
+	  target: 'idBoard',
+          fields: {
+            idBoard: '1'
           }
         }
       };
@@ -336,9 +324,9 @@ describe('Add a Card', function() {
       var options = {
         credentials: {},
         input: {
-          target: {
-            field: 'idBoard',
-            value: '1'
+	  target: 'idBoard',
+          fields: {
+            idBoard: '1'
           }
         }
       };
@@ -366,9 +354,9 @@ describe('Add a Card', function() {
       var options = {
         credentials: {},
         input: {
-          target: {
-            field: 'idBoard',
-            value: '1'
+	  target: 'idBoard',
+          fields: {
+            idBoard: '1'
           }
         }
       };
