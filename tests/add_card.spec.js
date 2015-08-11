@@ -272,7 +272,7 @@ describe('Add a Card', function() {
       var options = {
         credentials: {},
         input: {
-	  target: 'idBoard',
+          target: 'idBoard',
           fields: {
             idBoard: '1'
           }
@@ -324,7 +324,7 @@ describe('Add a Card', function() {
       var options = {
         credentials: {},
         input: {
-	  target: 'idBoard',
+          target: 'idBoard',
           fields: {
             idBoard: '1'
           }
@@ -354,7 +354,7 @@ describe('Add a Card', function() {
       var options = {
         credentials: {},
         input: {
-	  target: 'idBoard',
+          target: 'idBoard',
           fields: {
             idBoard: '1'
           }
