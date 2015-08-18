@@ -1,4 +1,4 @@
-// Generated on 2015-04-15 using generator-flowxo 1.0.0
+// Generated on 2015-08-18 using generator-flowxo 2.0.0
 'use strict';
 
 module.exports = function(grunt) {
@@ -22,17 +22,6 @@ module.exports = function(grunt) {
     env: {
       src: '.env'
     },
-    mochaTest: {
-      test: {
-        options: {
-          reporter: 'spec',
-          quiet: false,
-          clearRequireCache: false,
-          require: './tests/helpers'
-        },
-        src: ['tests/bootstrap.js', 'tests/**/*.spec.js']
-      }
-    },
     watch: {
       js: {
         options: {
@@ -40,8 +29,8 @@ module.exports = function(grunt) {
           interrupt: false,
           debounceDelay: 250
         },
-        files: ['lib/**/*.js', 'tests/**/*.spec.js'],
-        tasks: ['jshint', 'test']
+        files: ['lib/**/*.js'],
+        tasks: ['jshint']
       }
     },
     jshint: {
@@ -51,9 +40,6 @@ module.exports = function(grunt) {
       },
       source: {
         src: ['Gruntfile.js', 'lib/**/*.js']
-      },
-      tests: {
-        src: ['tests/**/*.js'],
       }
     },
     jsbeautifier: {
@@ -62,9 +48,6 @@ module.exports = function(grunt) {
       },
       source: {
         src: ['Gruntfile.js', 'lib/**/*.js']
-      },
-      tests: {
-        src: ['tests/**/*.js'],
       }
     },
     flowxo: {
@@ -79,6 +62,7 @@ module.exports = function(grunt) {
       run: {
         options: {
           runsFolder: 'runs',
+          webhookPort: 9095
         }
       }
     }
@@ -93,12 +77,9 @@ module.exports = function(grunt) {
   // Run Tasks
   grunt.registerTask('run', ['env', 'flowxo:run']);
 
-  // Test Tasks
-  grunt.registerTask('test', ['env', 'mochaTest']);
-
   // Preflight Tasks
-  grunt.registerTask('preflight', ['env', 'jsbeautifier', 'jshint', 'test']);
+  grunt.registerTask('preflight', ['env', 'jsbeautifier', 'jshint']);
 
   // Default Task
-  grunt.registerTask('default', ['preflight', 'watch']);
+  grunt.registerTask('default', ['watch']);
 };
