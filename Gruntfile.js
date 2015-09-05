@@ -1,4 +1,4 @@
-// Generated on 2015-08-18 using generator-flowxo 2.0.0
+// Generated on 2015-09-05 using generator-flowxo 2.0.0
 'use strict';
 
 module.exports = function(grunt) {

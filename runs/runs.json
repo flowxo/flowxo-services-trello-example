@@ -1,0 +1,619 @@
+[
+  {
+    "type": "exec",
+    "method": "new_card",
+    "inputs": [
+      {
+        "key": "idBoard",
+        "label": "Board",
+        "required": true,
+        "type": "select",
+        "input_options": [
+          {
+            "label": "Recurring Tasks",
+            "value": "55030d2096b2b4a164141a27"
+          }
+        ],
+        "value": "55030d2096b2b4a164141a27"
+      }
+    ]
+  },
+  {
+    "type": "exec",
+    "method": "add_a_card",
+    "inputs": [
+      {
+        "key": "name",
+        "label": "Name",
+        "type": "text",
+        "required": true,
+        "value": "Test Card"
+      },
+      {
+        "key": "desc",
+        "label": "Description",
+        "type": "textarea",
+        "value": ""
+      },
+      {
+        "key": "pos",
+        "label": "Position",
+        "type": "select",
+        "input_options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ],
+        "value": ""
+      },
+      {
+        "key": "due",
+        "label": "Due",
+        "type": "datetime",
+        "value": ""
+      },
+      {
+        "key": "labels",
+        "label": "Labels",
+        "type": "text",
+        "description": "A comma-separated list of blue, green, orange, purple, red, yellow or all.",
+        "value": ""
+      },
+      {
+        "key": "urlSource",
+        "label": "Copy Card URL",
+        "type": "text",
+        "description": "The URL of a card that you want to copy (you must have access to it).",
+        "value": ""
+      },
+      {
+        "key": "idCardSource",
+        "label": "Copy Card ID",
+        "type": "text",
+        "description": "The ID of a card that you want to copy (you must have access to it).",
+        "value": ""
+      },
+      {
+        "key": "idBoard",
+        "label": "Board",
+        "required": true,
+        "type": "select",
+        "dependants": true,
+        "input_options": [
+          {
+            "label": "Recurring Tasks",
+            "value": "55030d2096b2b4a164141a27"
+          }
+        ],
+        "value": "55030d2096b2b4a164141a27"
+      },
+      {
+        "key": "idList",
+        "label": "List",
+        "type": "select",
+        "required": true,
+        "input_options": [
+          {
+            "value": "5503107e62e3f80392a02c13",
+            "label": "Daily Task"
+          },
+          {
+            "value": "550310847ac11a6390bd4d89",
+            "label": "Doing"
+          },
+          {
+            "value": "5503108cdbd4b56c1a7866c3",
+            "label": "Done"
+          }
+        ],
+        "value": "550310847ac11a6390bd4d89"
+      },
+      {
+        "key": "idMembers",
+        "label": "Member",
+        "type": "select",
+        "description": "Choosing a member here will add them to the card.",
+        "input_options": [
+          {
+            "value": "54feb94264062d4631b423f0",
+            "label": "Flow XO Services"
+          }
+        ],
+        "value": ""
+      }
+    ]
+  },
+  {
+    "type": "exec",
+    "method": "add_a_card",
+    "inputs": [
+      {
+        "key": "name",
+        "label": "Name",
+        "type": "text",
+        "required": true,
+        "value": "Test Card 2"
+      },
+      {
+        "key": "desc",
+        "label": "Description",
+        "type": "textarea",
+        "value": "A description"
+      },
+      {
+        "key": "pos",
+        "label": "Position",
+        "type": "select",
+        "input_options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ],
+        "value": "top"
+      },
+      {
+        "key": "due",
+        "label": "Due",
+        "type": "datetime",
+        "value": "tomorrow"
+      },
+      {
+        "key": "labels",
+        "label": "Labels",
+        "type": "text",
+        "description": "A comma-separated list of blue, green, orange, purple, red, yellow or all.",
+        "value": "blue, green"
+      },
+      {
+        "key": "urlSource",
+        "label": "Copy Card URL",
+        "type": "text",
+        "description": "The URL of a card that you want to copy (you must have access to it).",
+        "value": ""
+      },
+      {
+        "key": "idCardSource",
+        "label": "Copy Card ID",
+        "type": "text",
+        "description": "The ID of a card that you want to copy (you must have access to it).",
+        "value": ""
+      },
+      {
+        "key": "idBoard",
+        "label": "Board",
+        "required": true,
+        "type": "select",
+        "dependants": true,
+        "input_options": [
+          {
+            "label": "Recurring Tasks",
+            "value": "55030d2096b2b4a164141a27"
+          }
+        ],
+        "value": "55030d2096b2b4a164141a27"
+      },
+      {
+        "key": "idList",
+        "label": "List",
+        "type": "select",
+        "required": true,
+        "input_options": [
+          {
+            "value": "5503107e62e3f80392a02c13",
+            "label": "Daily Task"
+          },
+          {
+            "value": "550310847ac11a6390bd4d89",
+            "label": "Doing"
+          },
+          {
+            "value": "5503108cdbd4b56c1a7866c3",
+            "label": "Done"
+          }
+        ],
+        "value": "550310847ac11a6390bd4d89"
+      },
+      {
+        "key": "idMembers",
+        "label": "Member",
+        "type": "select",
+        "description": "Choosing a member here will add them to the card.",
+        "input_options": [
+          {
+            "value": "54feb94264062d4631b423f0",
+            "label": "Flow XO Services"
+          }
+        ],
+        "value": ""
+      }
+    ]
+  },
+  {
+    "type": "exec",
+    "method": "new_card",
+    "inputs": [
+      {
+        "key": "idBoard",
+        "label": "Board",
+        "required": true,
+        "type": "select",
+        "input_options": [
+          {
+            "label": "Recurring Tasks",
+            "value": "55030d2096b2b4a164141a27"
+          }
+        ],
+        "value": "55030d2096b2b4a164141a27"
+      }
+    ]
+  },
+  {
+    "type": "exec",
+    "method": "add_a_card",
+    "inputs": [
+      {
+        "key": "name",
+        "label": "Name",
+        "type": "text",
+        "required": true,
+        "value": "Test Card 3"
+      },
+      {
+        "key": "desc",
+        "label": "Description",
+        "type": "textarea",
+        "value": ""
+      },
+      {
+        "key": "pos",
+        "label": "Position",
+        "type": "select",
+        "input_options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ],
+        "value": ""
+      },
+      {
+        "key": "due",
+        "label": "Due",
+        "type": "datetime",
+        "value": "invalid"
+      },
+      {
+        "key": "labels",
+        "label": "Labels",
+        "type": "text",
+        "description": "A comma-separated list of blue, green, orange, purple, red, yellow or all.",
+        "value": ""
+      },
+      {
+        "key": "urlSource",
+        "label": "Copy Card URL",
+        "type": "text",
+        "description": "The URL of a card that you want to copy (you must have access to it).",
+        "value": ""
+      },
+      {
+        "key": "idCardSource",
+        "label": "Copy Card ID",
+        "type": "text",
+        "description": "The ID of a card that you want to copy (you must have access to it).",
+        "value": ""
+      },
+      {
+        "key": "idBoard",
+        "label": "Board",
+        "required": true,
+        "type": "select",
+        "dependants": true,
+        "input_options": [
+          {
+            "label": "Recurring Tasks",
+            "value": "55030d2096b2b4a164141a27"
+          }
+        ],
+        "value": "55030d2096b2b4a164141a27"
+      },
+      {
+        "key": "idList",
+        "label": "List",
+        "type": "select",
+        "required": true,
+        "input_options": [
+          {
+            "value": "5503107e62e3f80392a02c13",
+            "label": "Daily Task"
+          },
+          {
+            "value": "550310847ac11a6390bd4d89",
+            "label": "Doing"
+          },
+          {
+            "value": "5503108cdbd4b56c1a7866c3",
+            "label": "Done"
+          }
+        ],
+        "value": "550310847ac11a6390bd4d89"
+      },
+      {
+        "key": "idMembers",
+        "label": "Member",
+        "type": "select",
+        "description": "Choosing a member here will add them to the card.",
+        "input_options": [
+          {
+            "value": "54feb94264062d4631b423f0",
+            "label": "Flow XO Services"
+          }
+        ],
+        "value": ""
+      }
+    ]
+  },
+  {
+    "type": "exec",
+    "method": "add_a_card",
+    "inputs": []
+  },
+  {
+    "type": "exec",
+    "method": "add_a_card",
+    "inputs": [
+      {
+        "key": "name",
+        "label": "Name",
+        "type": "text",
+        "required": true,
+        "value": "Test Card 5"
+      },
+      {
+        "key": "desc",
+        "label": "Description",
+        "type": "textarea",
+        "value": ""
+      },
+      {
+        "key": "pos",
+        "label": "Position",
+        "type": "select",
+        "input_options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ],
+        "value": ""
+      },
+      {
+        "key": "due",
+        "label": "Due",
+        "type": "datetime",
+        "value": ""
+      },
+      {
+        "key": "labels",
+        "label": "Labels",
+        "type": "text",
+        "description": "A comma-separated list of blue, green, orange, purple, red, yellow or all.",
+        "value": ""
+      },
+      {
+        "key": "urlSource",
+        "label": "Copy Card URL",
+        "type": "text",
+        "description": "The URL of a card that you want to copy (you must have access to it).",
+        "value": ""
+      },
+      {
+        "key": "idCardSource",
+        "label": "Copy Card ID",
+        "type": "text",
+        "description": "The ID of a card that you want to copy (you must have access to it).",
+        "value": ""
+      },
+      {
+        "key": "idBoard",
+        "label": "Board",
+        "required": true,
+        "type": "select",
+        "dependants": true,
+        "input_options": [
+          {
+            "label": "Recurring Tasks",
+            "value": "55030d2096b2b4a164141a27"
+          }
+        ],
+        "value": "55030d2096b2b4a164141a27"
+      },
+      {
+        "key": "idList",
+        "label": "List",
+        "type": "select",
+        "required": true,
+        "input_options": [
+          {
+            "value": "5503107e62e3f80392a02c13",
+            "label": "Daily Task"
+          },
+          {
+            "value": "550310847ac11a6390bd4d89",
+            "label": "Doing"
+          },
+          {
+            "value": "5503108cdbd4b56c1a7866c3",
+            "label": "Done"
+          }
+        ],
+        "value": ""
+      },
+      {
+        "key": "idMembers",
+        "label": "Member",
+        "type": "select",
+        "description": "Choosing a member here will add them to the card.",
+        "input_options": [
+          {
+            "value": "54feb94264062d4631b423f0",
+            "label": "Flow XO Services"
+          }
+        ],
+        "value": ""
+      }
+    ]
+  },
+  {
+    "type": "exec",
+    "method": "add_a_card",
+    "inputs": []
+  },
+  {
+    "type": "exec",
+    "method": "add_a_card",
+    "inputs": [
+      {
+        "key": "name",
+        "label": "Name",
+        "type": "text",
+        "required": true,
+        "value": "Test Card 6"
+      },
+      {
+        "key": "desc",
+        "label": "Description",
+        "type": "textarea",
+        "value": ""
+      },
+      {
+        "key": "pos",
+        "label": "Position",
+        "type": "select",
+        "input_options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ],
+        "value": ""
+      },
+      {
+        "key": "due",
+        "label": "Due",
+        "type": "datetime",
+        "value": ""
+      },
+      {
+        "key": "labels",
+        "label": "Labels",
+        "type": "text",
+        "description": "A comma-separated list of blue, green, orange, purple, red, yellow or all.",
+        "value": ""
+      },
+      {
+        "key": "urlSource",
+        "label": "Copy Card URL",
+        "type": "text",
+        "description": "The URL of a card that you want to copy (you must have access to it).",
+        "value": "invalid"
+      },
+      {
+        "key": "idCardSource",
+        "label": "Copy Card ID",
+        "type": "text",
+        "description": "The ID of a card that you want to copy (you must have access to it).",
+        "value": ""
+      },
+      {
+        "key": "idBoard",
+        "label": "Board",
+        "required": true,
+        "type": "select",
+        "dependants": true,
+        "input_options": [
+          {
+            "label": "Recurring Tasks",
+            "value": "55030d2096b2b4a164141a27"
+          }
+        ],
+        "value": "55030d2096b2b4a164141a27"
+      },
+      {
+        "key": "idList",
+        "label": "List",
+        "type": "select",
+        "required": true,
+        "input_options": [
+          {
+            "value": "5503107e62e3f80392a02c13",
+            "label": "Daily Task"
+          },
+          {
+            "value": "550310847ac11a6390bd4d89",
+            "label": "Doing"
+          },
+          {
+            "value": "5503108cdbd4b56c1a7866c3",
+            "label": "Done"
+          }
+        ],
+        "value": "550310847ac11a6390bd4d89"
+      },
+      {
+        "key": "idMembers",
+        "label": "Member",
+        "type": "select",
+        "description": "Choosing a member here will add them to the card.",
+        "input_options": [
+          {
+            "value": "54feb94264062d4631b423f0",
+            "label": "Flow XO Services"
+          }
+        ],
+        "value": ""
+      }
+    ]
+  },
+  {
+    "type": "exec",
+    "method": "new_card",
+    "inputs": [
+      {
+        "key": "idBoard",
+        "label": "Board",
+        "required": true,
+        "type": "select",
+        "input_options": [
+          {
+            "label": "Recurring Tasks",
+            "value": "55030d2096b2b4a164141a27"
+          }
+        ],
+        "value": "55030d2096b2b4a164141a27"
+      }
+    ]
+  }
+]
