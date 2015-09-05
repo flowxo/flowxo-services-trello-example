@@ -19,9 +19,9 @@ Then run `grunt run --replay` to step through this sequence of tests:
 - Add a Card - invalid card copy URL (success)
 - New Card - finds 1 new item (success)
 
-### Notes About Integration Tests
+#### Notes About Integration Tests
 
-We plan to improve our integration test tooling soon, and add some much-needed features.  For now, the idea is to create a sequence of reproducible test methods that prove that the service fundamentally works.  The whole sequence should take no longer than a few minutes to work through.
+We plan to improve our integration test tooling soon, and add some much needed features.  For now, the idea is to create a sequence of reproducible test methods that prove that the service fundamentally works.  The whole sequence should take no longer than a few minutes to work through.
 
 When you start developing for a service, you should ask Flow XO for access to a shared test account.  Then run your tests against this account.  That way, we don't need to find/replace ID's as we have here.  For testing updates, use a persistent record (mark it _DO NOT DELETE_) that always exists and is ready to run tests against.
 
